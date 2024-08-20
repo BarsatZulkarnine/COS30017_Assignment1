@@ -1,0 +1,42 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <!-- TextView to display the score -->
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/score_label"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Climb button -->
+    <Button
+        android:id="@+id/climbButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/climb_button"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Fall button -->
+    <Button
+        android:id="@+id/fallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fall_button"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Reset button -->
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_button"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

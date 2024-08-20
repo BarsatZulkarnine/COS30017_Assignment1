@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ক্লাইম্বিং স্কোর অ্যাপ</string>
+    <string name="climb_button">উঠা</string>
+    <string name="fall_button">পতন</string>
+    <string name="reset_button">
+রিসেট করুন</string>
+    <string name="score_label">
+স্কোর: </string>
+</resources>

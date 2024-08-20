@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Climbing Score App</string>
+    <string name="climb_button">Climb</string>
+    <string name="fall_button">Fall</string>
+    <string name="reset_button">Reset</string>
+    <string name="score_label">Score: %1$d</string>
+</resources>
