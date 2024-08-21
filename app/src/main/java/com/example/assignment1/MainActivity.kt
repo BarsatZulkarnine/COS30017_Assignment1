@@ -3,24 +3,26 @@ package com.example.assignment1
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import com.airbnb.lottie.LottieAnimationView
 
 class MainActivity : ComponentActivity() {
 
     private var score: Int = 0
     private var wallHold: Int = 0
-    private var hasFallen: Boolean = false // Flag to track if the user has fallen
+    private var hasFallen: Boolean = false
     private lateinit var scoreTextView: TextView
+    private lateinit var fireworksAnimationView: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Set the layout depending on the orientation (landscape or portrait)
         setContentView(R.layout.activity_main)
 
         scoreTextView = findViewById(R.id.scoreTextView)
+        fireworksAnimationView = findViewById(R.id.fireworksAnimationView)
         val climbButton: Button = findViewById(R.id.climbButton)
         val fallButton: Button = findViewById(R.id.fallButton)
         val resetButton: Button = findViewById(R.id.resetButton)
@@ -33,7 +35,6 @@ class MainActivity : ComponentActivity() {
         }
 
         climbButton.setOnClickListener {
-            // If the user has fallen, prevent them from climbing until reset
             if (!hasFallen && wallHold < 9) {
                 wallHold += 1
                 when (wallHold) {
@@ -43,17 +44,16 @@ class MainActivity : ComponentActivity() {
                 }
                 score = score.coerceAtMost(18)  // Max score 18
                 updateScore()
-            } else if (hasFallen) {
-                Log.d("MainActivity", "Climb blocked due to fall. Reset required.")
+                triggerFireworks()
             }
             Log.d("MainActivity", "Climb clicked, wallHold: $wallHold, score: $score")
         }
 
         fallButton.setOnClickListener {
-            if (wallHold in 1..8 && !hasFallen) {  // Only allow fall if between holds 1-8 and user hasn't fallen yet
-                score = (score - 3).coerceAtLeast(0)  // No negative score
-                wallHold = 0  // Reset wallHold after fall
-                hasFallen = true  // User has fallen, so they can't climb further
+            if (wallHold in 1..8 && !hasFallen) {
+                score = (score - 3).coerceAtLeast(0)
+                wallHold = 0
+                hasFallen = true
                 updateScore()
             }
             Log.d("MainActivity", "Fall clicked, wallHold: $wallHold, score: $score")
@@ -62,11 +62,13 @@ class MainActivity : ComponentActivity() {
         resetButton.setOnClickListener {
             score = 0
             wallHold = 0
-            hasFallen = false  // Reset the fall status
-            scoreTextView.setTextColor(getColor(R.color.black))
+            hasFallen = false
+            fireworksAnimationView.visibility = View.GONE
+            fireworksAnimationView.cancelAnimation()
             updateScore()
             Log.d("MainActivity", "Reset clicked, wallHold: $wallHold, score: $score")
         }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -79,22 +81,34 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Save the state when rotating the device
+    private fun triggerFireworks() {
+        if (score > 0) {
+            when (wallHold) {
+                in 1..3 -> fireworksAnimationView.setAnimation(R.raw.blue_fireworks)
+                in 4..6 -> fireworksAnimationView.setAnimation(R.raw.green_fireworks)
+                in 7..9 -> fireworksAnimationView.setAnimation(R.raw.red_fireworks)
+            }
+            fireworksAnimationView.visibility = View.VISIBLE
+            fireworksAnimationView.playAnimation()
+        } else {
+            fireworksAnimationView.visibility = View.GONE
+            fireworksAnimationView.cancelAnimation()
+        }
+    }
+
+
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt("score", score)
         outState.putInt("wallHold", wallHold)
-        outState.putBoolean("hasFallen", hasFallen) // Save fall status
+        outState.putBoolean("hasFallen", hasFallen)
         super.onSaveInstanceState(outState)
-        Log.d("MainActivity", "State saved")
     }
 
-    // Restore the state after rotation
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         score = savedInstanceState.getInt("score")
         wallHold = savedInstanceState.getInt("wallHold")
         hasFallen = savedInstanceState.getBoolean("hasFallen")
         updateScore()
-        Log.d("MainActivity", "State restored, wallHold: $wallHold, score: $score")
     }
 }

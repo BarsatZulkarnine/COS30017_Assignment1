@@ -1,10 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="horizontal"
     android:gravity="center"
-    android:background="@drawable/background_image"> <!-- Replace with your image file -->
+    android:background="@drawable/background_image">
 
     <!-- Left side of the screen (Empty space for padding) -->
     <View
@@ -12,12 +13,22 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
 
-    <!-- Middle content containing score and buttons -->
+    <!-- Middle content containing score, animation, and buttons -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
+
+        <!-- Lottie animation view -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/fireworksAnimationView"
+            android:layout_width="144dp"
+            android:layout_height="137dp"
+            android:layout_marginBottom="20dp"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/blue_fireworks" />
 
         <!-- TextView for score -->
         <TextView

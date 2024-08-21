@@ -1,63 +1,59 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/background_image"
-    android:padding="16dp">
+    android:background="@drawable/background_image">
 
-    <!-- FrameLayout to contain the TextView and its background -->
-    <FrameLayout
+    <!-- Lottie animation view -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fireworksAnimationView"
+        android:layout_width="144dp"
+        android:layout_height="137dp"
+        android:layout_marginBottom="20dp"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/blue_fireworks" />
+
+    <!-- TextView for score -->
+    <TextView
+        android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Score: 0"
+        android:textSize="24sp"
         android:layout_marginBottom="20dp"
-        android:padding="8dp">
+        android:gravity="center"
+        android:textColor="#FFFFFF" />
 
-        <!-- Dark semi-transparent background for the score -->
-        <View
-            android:layout_width="143dp"
-            android:layout_height="50dp"
-            android:background="#80000000" />
+    <!-- Vertical LinearLayout for buttons -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <!-- TextView to display the score -->
-        <TextView
-            android:id="@+id/scoreTextView"
+        <Button
+            android:id="@+id/climbButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="8dp"
-            android:text="@string/score_label"
-            android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:text="Climb" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/fallButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Fall" />
 
-    <!-- Climb button -->
-    <Button
-        android:id="@+id/climbButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#3F51B5"
-        android:text="@string/climb_button" />
-
-    <!-- Fall button -->
-    <Button
-        android:id="@+id/fallButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#2196F3"
-        android:text="@string/fall_button" />
-
-    <!-- Reset button -->
-    <Button
-        android:id="@+id/resetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#00BCD4"
-        android:text="@string/reset_button" />
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Reset" />
+    </LinearLayout>
 
 </LinearLayout>
